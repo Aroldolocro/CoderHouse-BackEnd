@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "title": "Bitcoin",
+    "description": "BTC BEP-20",
+    "code": "BTC-01",
+    "price": 17300,
+    "status": true,
+    "stock": 9,
+    "category": "Altcoin",
+    "thumbnails": [
+      "./Images/BTC-img0.png",
+      "./Images/BTC-img1.png",
+      "./Images/BTC-img2.png"
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Ethereum",
+    "description": "ETH ERC-20",
+    "code": "ETH-01",
+    "price": 1270,
+    "status": true,
+    "stock": 5,
+    "category": "Altcoin",
+    "thumbnails": [
+      "./Images/ETH-img0.png",
+      "./Images/ETH-img1.png",
+      "./Images/ETH-img2.png"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Litecoin",
+    "description": "LTC LTC-Network",
+    "code": "LTC-01",
+    "price": 85,
+    "status": true,
+    "stock": 19,
+    "category": "Altcoin",
+    "thumbnails": [
+      "./Images/LTC-img0.png",
+      "./Images/LTC-img1.png",
+      "./Images/LTC-img2.png"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "USD-T",
+    "description": "USD-T BEP-20",
+    "code": "USD-T-01",
+    "price": 1,
+    "status": true,
+    "stock": 730,
+    "category": "Stablecoin",
+    "thumbnails": [
+      "./Images/USD-T-img0.png",
+      "./Images/USD-T-img1.png",
+      "./Images/USD-T-img2.png"
+    ]
+  }
+]
