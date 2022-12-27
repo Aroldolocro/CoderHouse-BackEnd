@@ -2,7 +2,7 @@ import FileSystem from "fs";
 
 class ProductManager {
   constructor() {
-    this.Path = "./src/routes/Products/ProductsJsonDataBase.json";
+    this.Path = "./src/classes/Products/ProductsJsonDataBase.json";
     this.Products = [];
   }
 
@@ -54,34 +54,6 @@ class ProductManager {
       const Data = JSON.parse(FileSystem.readFileSync(this.Path, "utf-8"));
       return Data;
     }
-  };
-
-  updateProduct = async (
-    id,
-    title,
-    description,
-    code,
-    price,
-    status,
-    stock,
-    category,
-    thumbnails
-  ) => {
-    const ProductsFromDB = await this.getProducts();
-
-    ProductsFromDB[id] = {
-      id: ProductsFromDB.indexOf(ProductsFromDB[id]),
-      title: title,
-      description: description,
-      code: code,
-      price: price,
-      status: status,
-      stock: stock,
-      category: category,
-      thumbnails: thumbnails,
-    };
-    const WriteJson = JSON.stringify(ProductsFromDB);
-    FileSystem.writeFileSync(this.Path, WriteJson);
   };
 
   deleteProduct = async (id) => {

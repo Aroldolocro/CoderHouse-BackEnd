@@ -1,42 +1,27 @@
 import { Router } from "express";
-import ProductManager from "./products.manager.js";
+import socketServer from "../../app.js";
+import ProductManager from "../../classes/Products/products.manager.js";
 
 const router = Router();
 const manager = new ProductManager();
 
 router.get("/", async (req, res) => {
   const ProductsFromDB = await manager.getProducts();
-  const Limit = req.query.limit;
-  if (!Limit) {
-    res.send({ ProductsFromDB });
-  } else if (Limit <= ProductsFromDB.length) {
-    res.send({ ProductsSolicited: ProductsFromDB.slice(0, Limit) });
-  } else {
-    res.send({
-      status: "error",
-      message: "Products can not be displayed. Please check your query param.",
-    });
-  }
+  res.render("home", {
+    products: ProductsFromDB,
+    style: "index.css",
+    script: "index.js",
+  });
 });
 
-router.get("/:pid", async (req, res) => {
-  const ProductsFromDB = await manager.getProducts();
-  const IdParam = req.params.pid;
-
-  const FindProductByParam = ProductsFromDB[IdParam];
-
-  if (!FindProductByParam) {
-    res.send({
-      status: "error",
-      message:
-        "Product not found. Please check if the product id you are looking for is included on the product list.",
-    });
-  } else {
-    res.send(FindProductByParam);
-  }
+router.get("/realtimeproducts", async (req, res) => {
+  res.render("realTimeProducts", {
+    style: "index.css",
+    script: "index.js",
+  });
 });
 
-router.post("/", (req, res) => {
+router.post("/realtimeproducts", (req, res) => {
   const product = req.body;
   if (
     !product.title ||
@@ -56,66 +41,26 @@ router.post("/", (req, res) => {
       product.title,
       product.description,
       product.code,
-      product.price,
+      product.price / 1,
       product.status,
-      product.stock,
+      product.stock / 1,
       product.category,
       product.thumbnails
     );
-    res.send({ status: "success", message: "Product added successfully." });
   }
+  res.render("realTimeProducts", {
+    style: "index.css",
+    script: "index.js",
+  });
 });
 
-router.put("/:pid", async (req, res) => {
-  const IdParam = req.params.pid;
-  const ProductUpdated = req.body;
-  if (IdParam > manager.getProducts().length - 1 || isNaN(IdParam)) {
-    res.send({
-      status: "error",
-      message:
-        "The product you are looking for has not been found, please check the id written.",
+setTimeout(() => {
+  socketServer.on("connection", (socket) => {
+    socket.on("Socket-02", async (data) => {
+      const InputValue = await data;
+      manager.deleteProduct(InputValue);
     });
-  } else if (
-    !ProductUpdated.title ||
-    !ProductUpdated.description ||
-    !ProductUpdated.code ||
-    !ProductUpdated.price ||
-    !ProductUpdated.status ||
-    !ProductUpdated.stock ||
-    !ProductUpdated.category
-  ) {
-    res.send({
-      status: "error",
-      message: "Some of the required fields have not been setted.",
-    });
-  } else {
-    manager.updateProduct(
-      IdParam,
-      ProductUpdated.title,
-      ProductUpdated.description,
-      ProductUpdated.code,
-      ProductUpdated.price,
-      ProductUpdated.status,
-      ProductUpdated.stock,
-      ProductUpdated.category,
-      ProductUpdated.thumbnails
-    );
-    res.send({ status: "success", message: "Product updated successfully." });
-  }
-});
-
-router.delete("/:pid", (req, res) => {
-  const IdParam = req.params.pid;
-  if (IdParam > manager.getProducts().length - 1 || isNaN(IdParam)) {
-    res.send({
-      status: "error",
-      message:
-        "The product you are looking for has not been found, please check the id written.",
-    });
-  } else {
-    manager.deleteProduct(IdParam);
-    res.send({ status: "success", message: "Product deleted successfully." });
-  }
-});
+  });
+}, 1000);
 
 export default router;

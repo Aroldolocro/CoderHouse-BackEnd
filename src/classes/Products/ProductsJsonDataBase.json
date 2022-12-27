@@ -2,7 +2,7 @@
   {
     "id": 0,
     "title": "Bitcoin",
-    "description": "BTC BEP-20",
+    "description": "Bitcoin (BTC) is a cryptocurrency, a virtual currency designed to act as money and a form of payment outside the control of any one person, group, or entity, thus removing the need for third-party involvement in financial transactions.",
     "code": "BTC-01",
     "price": 17300,
     "status": true,
@@ -17,7 +17,7 @@
   {
     "id": 1,
     "title": "Ethereum",
-    "description": "ETH ERC-20",
+    "description": "Ethereum is a decentralized blockchain platform that establishes a peer-to-peer network that securely executes and verifies application code, called smart contracts.",
     "code": "ETH-01",
     "price": 1270,
     "status": true,
@@ -32,7 +32,7 @@
   {
     "id": 2,
     "title": "Litecoin",
-    "description": "LTC LTC-Network",
+    "description": "Litecoin is a peer-to-peer (P2P) virtual currency, which means it is not governed by a central authority.",
     "code": "LTC-01",
     "price": 85,
     "status": true,
@@ -47,7 +47,7 @@
   {
     "id": 3,
     "title": "USD-T",
-    "description": "USD-T BEP-20",
+    "description": "Key Takeaways. Tether (USDT) is a stablecoin, a type of cryptocurrency pursuing a steady valuation.",
     "code": "USD-T-01",
     "price": 1,
     "status": true,

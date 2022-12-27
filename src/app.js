@@ -1,13 +1,29 @@
 import express from "express";
-import ProductsRouter from "../src/routes/Products/products.router.js";
-import CartsRouter from "../src/routes/Carts/carts.router.js";
+import { Server } from "socket.io";
+import handlebars from "express-handlebars";
+import __dirname from "./utils.js";
+import ProductsRouter from "./routes/Products/products.router.js";
+import ProductManager from "./classes/Products/products.manager.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/products", ProductsRouter);
-app.use("/api/carts", CartsRouter);
+const httpServer = app.listen(8080);
+const socketServer = new Server(httpServer);
 
-app.listen(8080, () => console.log("Server is running"));
+app.use(express.static(__dirname + "/public"));
+app.engine("handlebars", handlebars.engine());
+app.set("views", __dirname + "/views");
+app.set("view engine", "handlebars");
+app.use("/", ProductsRouter);
+
+const manager = new ProductManager();
+
+socketServer.on("connection", async (socket) => {
+  const ProductsFromDB = await manager.getProducts();
+  socket.emit("Socket-01", ProductsFromDB);
+});
+
+export default socketServer;

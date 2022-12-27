@@ -1,0 +1,26 @@
+<div class="home-background">
+  <p class="home-txt-1">Products solicited from "/" (home):</p>
+  <p class="home-txt-2">All cryptos that BACKEND store owns:</p>
+  <div class="home-B1">
+    {{#each products}}
+      <div class="product-background">
+        <div class="product-B1">
+          <p class="product-txt-1">{{this.id}}</p>
+          <p class="product-txt-2">{{this.code}}</p>
+        </div>
+        <div class="product-B2">
+          <p class="product-txt-3">?</p>
+          <p class="product-txt-4">{{this.title}}</p>
+          <p class="product-txt-5">{{this.description}}</p>
+          <div class="product-B2B1">
+            <p class="product-txt-6">Stock: <b>{{this.stock}}</b></p>
+            <p class="product-txt-7">$ {{this.price}}</p>
+          </div>
+        </div>
+        <div class="product-B3">
+          Add to cart
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
